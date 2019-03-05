@@ -20,6 +20,11 @@ public abstract class AbstractFigure
 
     public abstract void draw(GraphicsContext context);
 
+    public final void resize(double deltaX, double deltaY)
+    {
+        x2 += deltaX;
+        y2 += deltaY;
+    }
 
     public double getX1()
     {
@@ -31,6 +36,15 @@ public abstract class AbstractFigure
         return y1;
     }
 
+    public double getX2()
+    {
+        return x2;
+    }
+
+    public double getY2()
+    {
+        return y2;
+    }
 
     public double getWidth()
     {
