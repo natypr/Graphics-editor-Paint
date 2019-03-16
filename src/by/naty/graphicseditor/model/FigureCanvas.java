@@ -17,11 +17,22 @@ public class FigureCanvas {
         }
     }
 
+    public void add(AbstractFigure figure)
+    {
+        figures.add(figure);
+    }
+
     public void resizeLast(double deltaX, double deltaY)
     {
-        // require(!figures.isEmpty(), "no figure to resize");
         AbstractFigure figure = figures.get(figures.size() - 1);
         figure.resize(deltaX, deltaY);
+    }
+
+    public void removeLast()
+    {
+        if (!figures.isEmpty()) {
+            figures.remove(figures.size() - 1);
+        }
     }
 
 }
