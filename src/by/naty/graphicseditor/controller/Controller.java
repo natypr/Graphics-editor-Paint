@@ -3,9 +3,7 @@ package by.naty.graphicseditor.controller;
 import by.naty.graphicseditor.model.AbstractFigure;
 import by.naty.graphicseditor.model.FigureCanvas;
 import by.naty.graphicseditor.model.FigureType;
-import by.naty.graphicseditor.model.figures.FigureFactory;
-import by.naty.graphicseditor.model.figures.Rectangle;
-import by.naty.graphicseditor.model.figures.Triangle;
+import by.naty.graphicseditor.model.FigureFactory;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ColorPicker;
@@ -47,8 +45,8 @@ public class Controller {
             case Cursor:
                 break;
             case Dragging:
-                int dragPrevX = (int) event.getX();
-                int dragPrevY = (int) event.getY();
+                dragPrevX = (int) event.getX();
+                dragPrevY = (int) event.getY();
 
                 FigureType figureType = getSelectedFigureType();
                 AbstractFigure figure = FigureFactory.create(figureType, dragPrevX, dragPrevY);
@@ -90,7 +88,13 @@ public class Controller {
 
     private FigureType getSelectedFigureType()
     {
-        FigureType[] available = {FigureType.Rectangle, FigureType.Triangle, FigureType.Circle};
-        return available[2];
+        FigureType[] available = {  FigureType.Rectangle,
+                                    FigureType.Square,
+                                    FigureType.Oval,
+                                    FigureType.Circle,
+                                    FigureType.Triangle,
+                                    FigureType.Line
+        };
+        return available[5];
     }
 }

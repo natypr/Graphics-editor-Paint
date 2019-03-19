@@ -16,6 +16,6 @@ public class Circle extends AbstractFigure {
     {
         double w = getWidth();
         double h = getHeight();
-        context.fillOval(getX1(), getY1(), min(w, h), min(w, h));
+        context.strokeOval(getX1(), getY1(), min(w, h), min(w, h));
     }
 }

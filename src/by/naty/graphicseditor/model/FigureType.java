@@ -2,6 +2,9 @@ package by.naty.graphicseditor.model;
 
 public enum FigureType {
     Rectangle,
-    Triangle,
+    Square,
+    Oval,
     Circle,
+    Triangle,
+    Line,
 }

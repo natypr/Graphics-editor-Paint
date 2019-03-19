@@ -1,7 +1,6 @@
-package by.naty.graphicseditor.model.figures;
+package by.naty.graphicseditor.model;
 
-import by.naty.graphicseditor.model.AbstractFigure;
-import by.naty.graphicseditor.model.FigureType;
+import by.naty.graphicseditor.model.figures.*;
 
 public class FigureFactory {
 
@@ -12,10 +11,16 @@ public class FigureFactory {
         switch (figureType) {
             case Rectangle:
                 return new Rectangle(bottomRightX - DEFAULT_SIZE, bottomRightY - DEFAULT_SIZE, bottomRightX, bottomRightY);
-            case Triangle:
-                return new Triangle(bottomRightX - DEFAULT_SIZE, bottomRightY - DEFAULT_SIZE, bottomRightX, bottomRightY);
+            case Square:
+                return new Square(bottomRightX - DEFAULT_SIZE, bottomRightY - DEFAULT_SIZE, bottomRightX, bottomRightY);
+            case Oval:
+                return new Oval(bottomRightX - DEFAULT_SIZE, bottomRightY - DEFAULT_SIZE, bottomRightX, bottomRightY);
             case Circle:
                 return new Circle(bottomRightX - DEFAULT_SIZE, bottomRightY - DEFAULT_SIZE, bottomRightX, bottomRightY);
+            case Triangle:
+                return new Triangle(bottomRightX - DEFAULT_SIZE, bottomRightY - DEFAULT_SIZE, bottomRightX, bottomRightY);
+            case Line:
+                return new Line(bottomRightX, bottomRightY, bottomRightX, bottomRightY);
             default:
                 throw new IllegalArgumentException("Unsupported type: " + figureType);
         }
