@@ -2,6 +2,7 @@ package by.naty.graphicseditor.model.figures;
 
 import by.naty.graphicseditor.model.AbstractFigure;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 public class Oval extends AbstractFigure
 {
@@ -13,6 +14,11 @@ public class Oval extends AbstractFigure
 
     public void draw(GraphicsContext context)
     {
+        context.setFill(Color.valueOf(getFillColor()));
+        context.setStroke(Color.valueOf(getPenColor()));
+        context.setLineWidth(5);
+
+        context.fillOval(getX1(), getY1(), getWidth(), getHeight());
         context.strokeOval(getX1(), getY1(), getWidth(), getHeight());
     }
 }

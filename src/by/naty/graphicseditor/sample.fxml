@@ -7,13 +7,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="by.naty.graphicseditor.controller.Controller">
+<AnchorPane onKeyPressed="#canvasOnKeyPressed" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="by.naty.graphicseditor.controller.Controller">
    <children>
-      <Canvas fx:id="mainCanvas" height="560.0" layoutX="133.0" layoutY="42.0" onMouseDragged="#canvasOnMouseDragged" onMousePressed="#canvasOnMousePressed" onKeyPressed="#canvasOnKeyPressed" width="750.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
+      <Canvas fx:id="mainCanvas" height="560.0" layoutX="133.0" layoutY="42.0" onMouseDragged="#canvasOnMouseDragged" onMousePressed="#canvasOnMousePressed" width="750.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
       <Pane fx:id="mainPane" prefHeight="560.0" prefWidth="202.0" style="-fx-background-color: #fefefe;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="750.0" AnchorPane.topAnchor="40.0">
          <children>
             <ColorPicker fx:id="colPen" layoutX="21.0" layoutY="36.0" prefHeight="39.0" prefWidth="39.0" />
             <ColorPicker fx:id="colFill" layoutX="83.0" layoutY="36.0" prefHeight="39.0" prefWidth="39.0" />
+            <ListView fx:id="lwMain" layoutY="124.0" prefHeight="438.0" prefWidth="150.0" />
          </children></Pane>
       <MenuBar prefHeight="40.0" prefWidth="900.0" AnchorPane.bottomAnchor="560.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>

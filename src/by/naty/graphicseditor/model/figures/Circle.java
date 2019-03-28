@@ -2,6 +2,7 @@ package by.naty.graphicseditor.model.figures;
 
 import by.naty.graphicseditor.model.AbstractFigure;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 import static java.lang.Math.min;
 
@@ -14,8 +15,13 @@ public class Circle extends AbstractFigure {
     @Override
     public void draw(GraphicsContext context)
     {
+        context.setFill(Color.valueOf(getFillColor()));
+        context.setStroke(Color.valueOf(getPenColor()));
+        context.setLineWidth(5);
+
         double w = getWidth();
         double h = getHeight();
+        context.fillOval(getX1(), getY1(), min(w, h), min(w, h));
         context.strokeOval(getX1(), getY1(), min(w, h), min(w, h));
     }
 }

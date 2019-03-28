@@ -10,12 +10,34 @@ public abstract class AbstractFigure
     private double x2;
     private double y2;
 
+    private String fillColor;
+    private String penColor;
+
     public AbstractFigure(double x1, double y1, double x2, double y2)
     {
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
         this.y2 = y2;
+        penColor = "#000";
+        fillColor = "#ff0000";
+    }
+
+
+    public String getFillColor() {
+        return fillColor;
+    }
+
+    public String getPenColor() {
+        return penColor;
+    }
+
+    public void setPenColor(String penColor) {
+        this.penColor = penColor;
+    }
+
+    public void setFillColor(String fillColor) {
+        this.fillColor = fillColor;
     }
 
     public abstract void draw(GraphicsContext context);
