@@ -19,7 +19,7 @@ public class Controller {
     private final FigureCanvas figureCanvas = new FigureCanvas();
     private double dragPrevX = -1.0;
     private double dragPrevY = -1.0;
-    private State state = State.Cursor;
+    private State state = State.Selecting;
 
     // form declarations
 
@@ -47,27 +47,27 @@ public class Controller {
 
     @FXML
     public void canvasOnMousePressed(MouseEvent event) {
-        state = State.Dragging;
+        if (isSelecting()) {
+            state = State.Selecting;
+        }
+        else {
+            state = State.Dragging;
+        }
 
+        dragPrevX = (int) event.getX();
+        dragPrevY = (int) event.getY();
         switch (state) {
-            case Cursor:
-                break;
             case Dragging:
-                dragPrevX = (int) event.getX();
-                dragPrevY = (int) event.getY();
-
                 FigureType figureType = getSelectedFigureType();
-                AbstractFigure figure = FigureFactory.create(figureType, dragPrevX, dragPrevY);
+                AbstractFigure figure = FigureFactory.getInstance().create(figureType, dragPrevX, dragPrevY);
                 figure.setFillColor(colFill.getValue().toString());
                 figure.setPenColor(colPen.getValue().toString());
-
 
                 figureCanvas.add(figure);
                 figureCanvas.redraw(mainCanvas.getGraphicsContext2D(), mainCanvas.getWidth(), mainCanvas.getHeight());
                 break;
             case Selecting:
-                break;
-            default:
+                figureCanvas.selectAndRedraw(event.getX(), event.getY(), mainCanvas.getGraphicsContext2D(), mainCanvas.getWidth(), mainCanvas.getHeight());
                 break;
         }
     }
@@ -75,16 +75,22 @@ public class Controller {
     @FXML
     public void canvasOnMouseDragged(MouseEvent event)
     {
-        if (state == State.Dragging) {
+        double newX = event.getX();
+        double newY = event.getY();
+        double deltaX = newX - dragPrevX;
+        double deltaY = newY - dragPrevY;
+        dragPrevX = newX;
+        dragPrevY = newY;
 
-            double newX = event.getX();
-            double newY = event.getY();
-            double deltaX = newX - dragPrevX;
-            double deltaY = newY - dragPrevY;
-            figureCanvas.resizeLast(deltaX, deltaY);
-            figureCanvas.redraw(mainCanvas.getGraphicsContext2D(), mainCanvas.getWidth(), mainCanvas.getHeight());
-            dragPrevX = newX;
-            dragPrevY = newY;
+        switch (state) {
+            case Dragging:
+                figureCanvas.resizeLast(deltaX, deltaY);
+                figureCanvas.redraw(mainCanvas.getGraphicsContext2D(), mainCanvas.getWidth(), mainCanvas.getHeight());
+                break;
+            case Selecting:
+                figureCanvas.moveSelected(deltaX, deltaY);
+                figureCanvas.redraw(mainCanvas.getGraphicsContext2D(), mainCanvas.getWidth(), mainCanvas.getHeight());
+                break;
         }
     }
 
@@ -100,5 +106,10 @@ public class Controller {
     private FigureType getSelectedFigureType()
     {
         return lwMain.getFocusModel().getFocusedItem();
+    }
+
+    private boolean isSelecting()
+    {
+        return getSelectedFigureType() == FigureType.Selection;
     }
 }

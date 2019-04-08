@@ -78,4 +78,16 @@ public abstract class AbstractFigure
         return y2 - y1;
     }
 
+    public boolean contains(double x, double y)
+    {
+        return x1 <= x && x <= x2 && y1 <= y && y <= y2;
+    }
+
+    public void moveDelta(double deltaX, double deltaY)
+    {
+        x1 += deltaX;
+        x2 += deltaX;
+        y1 += deltaY;
+        y2 += deltaY;
+    }
 }

@@ -5,8 +5,20 @@ import by.naty.graphicseditor.model.figures.*;
 public class FigureFactory {
 
     private static final int DEFAULT_SIZE = 20;
+    private static FigureFactory instance = null;
 
-    public static AbstractFigure create(FigureType figureType, double bottomRightX, double bottomRightY)
+    public static FigureFactory getInstance()
+    {
+        if (instance == null) {
+            instance = new FigureFactory();
+        }
+        return instance;
+    }
+
+    private FigureFactory() {}
+
+
+    public AbstractFigure create(FigureType figureType, double bottomRightX, double bottomRightY)
     {
         switch (figureType) {
             case Rectangle:
