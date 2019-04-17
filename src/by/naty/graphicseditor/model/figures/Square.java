@@ -1,13 +1,13 @@
 package by.naty.graphicseditor.model.figures;
 
 import by.naty.graphicseditor.model.AbstractFigure;
+import by.naty.graphicseditor.model.backSide.IEditable;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 import static java.lang.Math.min;
 
-public class Square extends AbstractFigure
-{
+public class Square extends AbstractFigure implements IEditable {
 
     public Square(double x1, double y1, double x2, double y2)
     {

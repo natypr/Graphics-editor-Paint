@@ -1,5 +1,6 @@
 package by.naty.graphicseditor.model;
 
+import by.naty.graphicseditor.model.backSide.FigurePart;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -81,10 +82,11 @@ public class FigureCanvas {
         return null;
     }
 
-    public void moveSelected(double deltaX, double deltaY)
+    public void resizeMoveSelected(double x, double y, double deltaX, double deltaY)
     {
         if (selected != null) {
-            selected.moveDelta(deltaX, deltaY);
+            FigurePart part = selected.getFigurePart(x, y);
+            selected.resizeMove(part, deltaX, deltaY);
         }
     }
 }

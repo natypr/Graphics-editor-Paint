@@ -53,13 +53,13 @@ public class Controller {
             state = State.Selecting;
         }
         else {
-            state = State.Dragging;
+            state = State.Drawing;
         }
 
         dragPrevX = (int) event.getX();
         dragPrevY = (int) event.getY();
         switch (state) {
-            case Dragging:
+            case Drawing:
                 FigureType figureType = getSelectedFigureType();
                 AbstractFigure figure = FigureFactory.getInstance().create(figureType, dragPrevX, dragPrevY);
                 figure.setFillColor(colFill.getValue().toString());
@@ -77,6 +77,8 @@ public class Controller {
     @FXML
     public void canvasOnMouseDragged(MouseEvent event)
     {
+        double oldX = dragPrevX;
+        double oldY = dragPrevY;
         double newX = event.getX();
         double newY = event.getY();
         double deltaX = newX - dragPrevX;
@@ -85,12 +87,12 @@ public class Controller {
         dragPrevY = newY;
 
         switch (state) {
-            case Dragging:
+            case Drawing:
                 figureCanvas.resizeLast(deltaX, deltaY);
                 figureCanvas.redraw(mainCanvas.getGraphicsContext2D(), mainCanvas.getWidth(), mainCanvas.getHeight());
                 break;
             case Selecting:
-                figureCanvas.moveSelected(deltaX, deltaY);
+                figureCanvas.resizeMoveSelected(oldX, oldY, deltaX, deltaY);
                 figureCanvas.redraw(mainCanvas.getGraphicsContext2D(), mainCanvas.getWidth(), mainCanvas.getHeight());
                 break;
         }

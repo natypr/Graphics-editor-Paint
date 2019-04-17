@@ -1,11 +1,11 @@
 package by.naty.graphicseditor.model.figures;
 
 import by.naty.graphicseditor.model.AbstractFigure;
+import by.naty.graphicseditor.model.backSide.IEditable;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public class Rectangle extends AbstractFigure
-{
+public class Rectangle extends AbstractFigure implements IEditable {
 
     public Rectangle(double x1, double y1, double x2, double y2)
     {

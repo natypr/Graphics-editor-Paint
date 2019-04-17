@@ -1,5 +1,7 @@
 package by.naty.graphicseditor.model;
 
+import by.naty.graphicseditor.model.backSide.FigurePart;
+import by.naty.graphicseditor.model.backSide.IEditable;
 import javafx.scene.canvas.GraphicsContext;
 
 
@@ -80,7 +82,7 @@ public abstract class AbstractFigure
 
     public boolean contains(double x, double y)
     {
-        return x1 <= x && x <= x2 && y1 <= y && y <= y2;
+        return x1 <= x + NEAR_TOLERANCE && x - NEAR_TOLERANCE <= x2 && y1 <= y + NEAR_TOLERANCE && y - NEAR_TOLERANCE <= y2;
     }
 
     public void moveDelta(double deltaX, double deltaY)
@@ -89,5 +91,53 @@ public abstract class AbstractFigure
         x2 += deltaX;
         y1 += deltaY;
         y2 += deltaY;
+    }
+
+    private boolean editable()
+    {
+        return this instanceof IEditable;
+    }
+
+    public void resizeMove(FigurePart part, double deltaX, double deltaY) {
+        switch (part) {
+            case LEFT_TOP:
+                if (editable()) {
+                    x1 += deltaX;
+                    y1 += deltaY;
+                }
+                break;
+            case RIGHT_BOTTOM:
+                if (editable()) {
+                    x2 += deltaX;
+                    y2 += deltaY;
+                }
+                break;
+            case INSIDE:
+                moveDelta(deltaX, deltaY);
+                break;
+            case OUTSIDE:
+                break;
+        }
+    }
+
+    public FigurePart getFigurePart(double x, double y)
+    {
+        if (near(x1, x) && near(y1, y)) {
+            return FigurePart.LEFT_TOP;
+        }
+        if (near(x2, x) && near(y2, y)) {
+            return FigurePart.RIGHT_BOTTOM;
+        }
+        if (x1 <= x && x <= x2 && y1 <= y && y <= y2) {
+            return FigurePart.INSIDE;
+        }
+        return FigurePart.OUTSIDE;
+    }
+
+    private static final int NEAR_TOLERANCE = 20;
+
+    private static boolean near(double a, double b)
+    {
+        return Math.abs(a - b) < NEAR_TOLERANCE;
     }
 }
