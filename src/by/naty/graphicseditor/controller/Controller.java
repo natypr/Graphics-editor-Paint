@@ -4,6 +4,7 @@ import by.naty.graphicseditor.model.AbstractFigure;
 import by.naty.graphicseditor.model.FigureCanvas;
 import by.naty.graphicseditor.model.FigureType;
 import by.naty.graphicseditor.model.FigureFactory;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ColorPicker;
@@ -16,6 +17,7 @@ public class Controller {
     // our declarations
 
     private final KeyCombination undo = new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN);
+    private final KeyCombination redo = new KeyCodeCombination(KeyCode.Y, KeyCombination.CONTROL_DOWN);
     private final FigureCanvas figureCanvas = new FigureCanvas();
     private double dragPrevX = -1.0;
     private double dragPrevY = -1.0;
@@ -101,6 +103,10 @@ public class Controller {
             figureCanvas.removeLast();
             figureCanvas.redraw(mainCanvas.getGraphicsContext2D(), mainCanvas.getWidth(), mainCanvas.getHeight());
         }
+        if(redo.match(event)){
+            figureCanvas.redo();
+            figureCanvas.redraw(mainCanvas.getGraphicsContext2D(), mainCanvas.getWidth(), mainCanvas.getHeight());
+        }
     }
 
     private FigureType getSelectedFigureType()
@@ -111,5 +117,14 @@ public class Controller {
     private boolean isSelecting()
     {
         return getSelectedFigureType() == FigureType.Selection;
+    }
+
+
+
+    public void openFile(ActionEvent actionEvent) {
+
+    }
+
+    public void saveFile(ActionEvent actionEvent) {
     }
 }
