@@ -1,9 +1,14 @@
 package by.naty.graphicseditor.model;
 
 import by.naty.graphicseditor.model.backSide.FigurePart;
+import by.naty.graphicseditor.model.serialization.FileSerializationReader;
+import by.naty.graphicseditor.model.serialization.FileSerializationWriter;
+import by.naty.graphicseditor.model.serialization.SerializationReader;
+import by.naty.graphicseditor.model.serialization.SerializationWriter;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -87,6 +92,42 @@ public class FigureCanvas {
         if (selected != null) {
             FigurePart part = selected.getFigurePart(x, y);
             selected.resizeMove(part, deltaX, deltaY);
+        }
+    }
+
+    public void saveToFile(File file)
+    {
+        try (SerializationWriter writer = new FileSerializationWriter(file)) {
+            for (AbstractFigure figure : figures) {
+                writer.writeString(figure.getType().toString());
+                figure.serialize(writer);
+                writer.writeDelimiter();
+            }
+        }
+        catch (Exception e) {
+            // it's better to show a dialog with an error
+            System.err.println("Error saving to file '" + file.getAbsolutePath() + "': " + e.getMessage());
+        }
+    }
+
+    public void loadFromFile(File file)
+    {
+        try (SerializationReader reader = new FileSerializationReader(file)) {
+            figures.clear();
+            FigureFactory factory = FigureFactory.getInstance();
+            while (reader.hasMoreTokens()) {
+                FigureType figureType = FigureType.valueOf(reader.readString());
+                AbstractFigure figure = factory.create(figureType, 0.0, 0.0);
+                figure.deserialize(reader);
+                if (!reader.readDelimiter()) {
+                    throw new IllegalArgumentException("Deserialize didn't consume all its input");
+                }
+                figures.add(figure);
+            }
+        }
+        catch (Exception e) {
+            // it's better to show a dialog with an error
+            System.err.println("Error loading from file '" + file.getAbsolutePath() + "': " + e.getMessage());
         }
     }
 }

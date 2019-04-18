@@ -1,6 +1,7 @@
 package by.naty.graphicseditor.model.figures;
 
 import by.naty.graphicseditor.model.AbstractFigure;
+import by.naty.graphicseditor.model.FigureType;
 import by.naty.graphicseditor.model.backSide.IEditable;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -25,12 +26,10 @@ public class Square extends AbstractFigure implements IEditable {
         context.fillRect(getX1(), getY1(), min(w, h), min(w, h));
         context.strokeRect(getX1(), getY1(), min(w, h), min(w, h));
     }
+
+    @Override
+    public FigureType getType()
+    {
+        return FigureType.Square;
+    }
 }
-
-
-/**
- *  To add a shape, change:
- *      in Controller -> FigureType.Square (for selected)
- *      in FigureFactory -> case Square (for initialisation)
- *      in FigureType -> Square (for type)
- * */

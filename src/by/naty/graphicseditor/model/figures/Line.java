@@ -1,6 +1,7 @@
 package by.naty.graphicseditor.model.figures;
 
 import by.naty.graphicseditor.model.AbstractFigure;
+import by.naty.graphicseditor.model.FigureType;
 import by.naty.graphicseditor.model.backSide.IEditable;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -19,5 +20,11 @@ public class Line extends AbstractFigure implements IEditable {
         context.setLineWidth(5);
 
         context.strokeLine(getX1(), getY1(), getX2(), getY2());
+    }
+
+    @Override
+    public FigureType getType()
+    {
+        return FigureType.Line;
     }
 }

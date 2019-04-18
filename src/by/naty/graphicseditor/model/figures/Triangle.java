@@ -1,6 +1,7 @@
 package by.naty.graphicseditor.model.figures;
 
 import by.naty.graphicseditor.model.AbstractFigure;
+import by.naty.graphicseditor.model.FigureType;
 import by.naty.graphicseditor.model.backSide.IEditable;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -26,5 +27,11 @@ public class Triangle extends AbstractFigure implements IEditable {
 
         context.fillPolygon(xs, ys, xs.length);
         context.strokePolygon(xs, ys, xs.length);
+    }
+
+    @Override
+    public FigureType getType()
+    {
+        return FigureType.Triangle;
     }
 }

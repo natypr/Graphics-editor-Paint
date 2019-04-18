@@ -2,6 +2,8 @@ package by.naty.graphicseditor.model;
 
 import by.naty.graphicseditor.model.backSide.FigurePart;
 import by.naty.graphicseditor.model.backSide.IEditable;
+import by.naty.graphicseditor.model.serialization.SerializationReader;
+import by.naty.graphicseditor.model.serialization.SerializationWriter;
 import javafx.scene.canvas.GraphicsContext;
 
 
@@ -43,6 +45,16 @@ public abstract class AbstractFigure
     }
 
     public abstract void draw(GraphicsContext context);
+
+    public abstract FigureType getType();
+
+    private void setSizes(double x1, double y1, double x2, double y2)
+    {
+        this.x1 = x1;
+        this.y1 = y1;
+        this.x2 = x2;
+        this.y2 = y2;
+    }
 
     public final void resize(double deltaX, double deltaY)
     {
@@ -139,5 +151,20 @@ public abstract class AbstractFigure
     private static boolean near(double a, double b)
     {
         return Math.abs(a - b) < NEAR_TOLERANCE;
+    }
+
+    public void serialize(SerializationWriter writer) {
+        writer.writeDouble(x1);
+        writer.writeDouble(y1);
+        writer.writeDouble(x2);
+        writer.writeDouble(y2);
+        writer.writeString(fillColor);
+        writer.writeString(penColor);
+    }
+
+    public void deserialize(SerializationReader reader) {
+        setSizes(reader.readDouble(), reader.readDouble(), reader.readDouble(), reader.readDouble());
+        setFillColor(reader.readString());
+        setPenColor(reader.readString());
     }
 }

@@ -11,6 +11,9 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ListView;
 import javafx.scene.input.*;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
+
+import java.io.File;
 
 public class Controller {
 
@@ -124,9 +127,19 @@ public class Controller {
 
 
     public void openFile(ActionEvent actionEvent) {
-
+        FileChooser fileChooser = new FileChooser();
+        File file = fileChooser.showOpenDialog(mainCanvas.getScene().getWindow());
+        if (file != null) {
+            figureCanvas.loadFromFile(file);
+            figureCanvas.redraw(mainCanvas.getGraphicsContext2D(), mainCanvas.getWidth(), mainCanvas.getHeight());
+        }
     }
 
     public void saveFile(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        File file = fileChooser.showSaveDialog(mainCanvas.getScene().getWindow());
+        if (file != null) {
+            figureCanvas.saveToFile(file);
+        }
     }
 }

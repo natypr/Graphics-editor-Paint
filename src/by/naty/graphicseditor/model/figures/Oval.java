@@ -1,6 +1,7 @@
 package by.naty.graphicseditor.model.figures;
 
 import by.naty.graphicseditor.model.AbstractFigure;
+import by.naty.graphicseditor.model.FigureType;
 import by.naty.graphicseditor.model.backSide.IEditable;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -20,5 +21,11 @@ public class Oval extends AbstractFigure implements IEditable {
 
         context.fillOval(getX1(), getY1(), getWidth(), getHeight());
         context.strokeOval(getX1(), getY1(), getWidth(), getHeight());
+    }
+
+    @Override
+    public FigureType getType()
+    {
+        return FigureType.Oval;
     }
 }

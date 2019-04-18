@@ -1,6 +1,7 @@
 package by.naty.graphicseditor.model.figures;
 
 import by.naty.graphicseditor.model.AbstractFigure;
+import by.naty.graphicseditor.model.FigureType;
 import by.naty.graphicseditor.model.backSide.IEditable;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -26,4 +27,11 @@ public class Circle extends AbstractFigure implements IEditable {
         context.fillOval(getX1(), getY1(), min(w, h), min(w, h));
         context.strokeOval(getX1(), getY1(), min(w, h), min(w, h));
     }
+
+    @Override
+    public FigureType getType()
+    {
+        return FigureType.Circle;
+    }
+
 }
