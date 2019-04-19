@@ -1,8 +1,6 @@
 package by.naty.graphicseditor.model.backSide;
 
 /**
- * Если фигура не реализует данный интерфейс - изменение размера фигуры невозможно.
+ * If the shape doesn't implement this interface, the shape cannot be resized.
  */
-public interface IEditable {
-
-}
+public interface IEditable { }

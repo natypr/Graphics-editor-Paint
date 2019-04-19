@@ -105,7 +105,6 @@ public class FigureCanvas {
             }
         }
         catch (Exception e) {
-            // it's better to show a dialog with an error
             System.err.println("Error saving to file '" + file.getAbsolutePath() + "': " + e.getMessage());
         }
     }
@@ -116,17 +115,24 @@ public class FigureCanvas {
             figures.clear();
             FigureFactory factory = FigureFactory.getInstance();
             while (reader.hasMoreTokens()) {
+                try {
                 FigureType figureType = FigureType.valueOf(reader.readString());
                 AbstractFigure figure = factory.create(figureType, 0.0, 0.0);
                 figure.deserialize(reader);
-                if (!reader.readDelimiter()) {
-                    throw new IllegalArgumentException("Deserialize didn't consume all its input");
+
+                    if (!reader.readDelimiter()) {
+                        throw new IllegalArgumentException("Deserialize didn't consume all its input");
+                    }
+                    figures.add(figure);
                 }
-                figures.add(figure);
+                catch (Exception e){
+                    System.err.println(e.getMessage());
+                  //  throw new RuntimeException(e);
+                }
+
             }
         }
         catch (Exception e) {
-            // it's better to show a dialog with an error
             System.err.println("Error loading from file '" + file.getAbsolutePath() + "': " + e.getMessage());
         }
     }
